@@ -1,0 +1,1 @@
+My project will be deployed using an API. After the model is trained in an Amazon SageMaker Jupyter Notebook Instance, it will be available for use in the Model tab that can be found in the SageMaker side menu.
