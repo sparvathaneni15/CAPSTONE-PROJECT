@@ -8,3 +8,6 @@ This will be a supervised regression problem. The independent and target variabl
 The dataset has already been split into the training and test data, with the training set accounting for more than 10 million samples, while the test set has 625000 samples. Since the training data has millions of samples and there are only 4 missing values, I will drop those samples. I intend to use the IQR method to identify any outliers and remove the samples containing them, if they are relatively infrequent. Otherwise, I anticipate that a log transformation will make outliers less impactful on any conclusions.
 
 As part of the exploratory data analysis (EDA), I will first get the IQR of all the features, so I can identify outliers. Then, I will create a correlation matrix to see what features are related/irrelevant to each other. After that, I will use data visualizations like scatter plots, line plots, and heatmaps for additional exploration. This will allow me to create a more focused and plausible hypothesis. Depending on what relations are found between features, it may become beneficial to conduct a PCA, in order to reduce the dimensionality of the dataset (many features have 60 dimensions).
+
+# Survey Existing Research
+[https://docs.google.com/document/d/1yJoqTdEhT7qudbydGBeaO0jKNYxtCi66W0P4fGvPYPg/edit?usp=sharing](url)
