@@ -10,4 +10,112 @@ The dataset has already been split into the training and test data, with the tra
 As part of the exploratory data analysis (EDA), I will first get the IQR of all the features, so I can identify outliers. Then, I will create a correlation matrix to see what features are related/irrelevant to each other. After that, I will use data visualizations like scatter plots, line plots, and heatmaps for additional exploration. This will allow me to create a more focused and plausible hypothesis. Depending on what relations are found between features, it may become beneficial to conduct a PCA, in order to reduce the dimensionality of the dataset (many features have 60 dimensions).
 
 # Survey Existing Research
-[Link](https://docs.google.com/document/d/1yJoqTdEhT7qudbydGBeaO0jKNYxtCi66W0P4fGvPYPg/edit?usp=sharing)
+## Data Preparation
+[Kaggle Notebok- Min-Hsien Weng](https://www.kaggle.com/code/minhsienweng/leap-data-divided-to-small-chunks)
+
+This user used dask dataframe to load all 10 million samples into a single dataframe. He concatenated each small dataset to create the all-encompassing dataframe, ready for use in the notebook.
+
+```
+def get_data(csv_file_path):    
+    # Read csv as a list of blocks
+    ddf = dd.read_csv(csv_file_path, blocksize=f"{1024}MB") # 5 Gb of block size
+#     for i in range(ddf.npartitions):
+    for i in [0]:    
+        # Save the data to a new CSV file
+        folder = 'Leap_data_chunk'
+        file_name = f"data_chunk_{i}.parquet"
+        # Concatenate all chunks to form the final dataframe
+        df_mb = ddf.partitions[i]  
+        df_mb.to_parquet(folder, write_index=False,            # Don't write the index
+                         name_function=lambda x:file_name
+                        )
+
+        # Display some information about the extracted data
+        print(f"Extracted {len(df_mb)} number of rows")
+        print(df_mb.info())
+        print(f"Data chunk has been saved to '{file_name}'")
+        del df_mb
+        gc.collect()
+```
+[Kaggle Notebook- Ahmad Suliman](https://www.kaggle.com/code/ahmedelneim/data-preparation-atmospheric-physics)
+
+This notebook covers how this user prepared and processed the dataset before conducting any exploratory data analysis on it. After loading all of the relevant files and creating a dataset without batching or shuffling, they used keras to normalize the data. Normalization is important because it puts features on an even playing ground, improving the model’s performance and accuracy.
+
+```
+def get_data(csv_file_path):    
+    # Read csv as a list of blocks
+    ddf = dd.read_csv(csv_file_path, blocksize=f"{1024}MB") # 5 Gb of block size
+#     for i in range(ddf.npartitions):
+    for i in [0]:    
+        # Save the data to a new CSV file
+        folder = 'Leap_data_chunk'
+        file_name = f"data_chunk_{i}.parquet"
+        # Concatenate all chunks to form the final dataframe
+        df_mb = ddf.partitions[i]  
+        df_mb.to_parquet(folder, write_index=False,            # Don't write the index
+                         name_function=lambda x:file_name
+                        )
+
+        # Display some information about the extracted data
+        print(f"Extracted {len(df_mb)} number of rows")
+        print(df_mb.info())
+        print(f"Data chunk has been saved to '{file_name}'")
+        del df_mb
+        gc.collect()
+```
+
+## Exploratory Data Analysis
+[Kaggle Notebook- Gnanaprakash R](https://www.kaggle.com/code/gnanaprakashr/leap-eda-notebook1)
+
+Before beginning any analysis, this user split the data to access statistics about the features and the targets separately, like mean, standard deviation, and IQR. He then has graphs showing the distribution of each of these target features, showing what are the most frequent values for that feature. He uses the same idea to compare the statistics of the training features, in both the training and test set. After that he creates a compact boxplot of all the multi-dimensional features in the dataset, resembling a time-series analysis. Then, he creates a correlation matrix, showing which target features are more related to other target features. He does this for the numerical features in both the training and test sets. After creating scatter plots for all of the features in both sets, the notebook is concluded by another correlation matrix.
+
+
+## Model Training
+[Kaggle Notebook- Ahmed Suliman](https://www.kaggle.com/code/ahmedelneim/model-training-atmospheric-physics)
+After normalizing the data, this user used keras to create a model. By using hyperparameter tuning with his own tuner, he was able to create a graph of the R^2 score callback.
+
+[Kaggle Notebook- Romulo Ferreira](https://www.kaggle.com/code/romulol/leap-xgboost)
+After splitting the training and target features and standardizing the data, he used the following code to create his model.
+
+```
+model = XGBRegressor(
+    n_estimators= 1150,
+    max_depth=56,
+    learning_rate=0.003,
+    colsample_bytree=0.9,
+    subsample=0.8,
+    min_child_weight=1,
+    random_state=42,
+    objective='reg:squarederror',
+    n_jobs=-1,  # Use all available cores
+    tree_method='hist',
+    device ='cuda',
+)
+
+r2_vector = []
+mse_vector = []
+
+y_pred_df = pd.DataFrame()
+out_i =360
+out_f=361
+for i in range(out_i, out_f):
+    
+    model.fit(X_train, Y_train[:, i]) 
+    y_pred = model.predict(X_val)
+    y_pred_df[f'y_pred_{i}'] = y_pred
+    
+    # Calculate r
+    r2 = r2_score(Y_val[:, i], y_pred)
+    mse = mean_squared_error(Y_val[:, i], y_pred)
+    print(f"{r2},{mse}")
+    # Append scores to the lists
+    r2_vector.append(r2)
+    mse_vector.append(mse)
+
+# Optionally convert lists to DataFrame for r2 and mse scores
+r2_df = pd.DataFrame({'r2_score': r2_vector})
+mse_df = pd.DataFrame({'mse_score': mse_vector})
+```
+
+[Kaggle Notebook- Romulo Ferreira](https://www.kaggle.com/code/romulol/leap-mlp)
+This notebook uses a multilayer perceptron to see which hyperparameters are the most important and can produce a model that is the most accurate. To show his results, this user uses a parallel coordinate plot and contour plot to display his findings.
