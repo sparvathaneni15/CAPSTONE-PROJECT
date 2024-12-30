@@ -37,6 +37,7 @@ def get_data(csv_file_path):
         del df_mb
         gc.collect()
 ```
+***
 [Kaggle Notebook- Ahmad Suliman](https://www.kaggle.com/code/ahmedelneim/data-preparation-atmospheric-physics)
 
 This notebook covers how this user prepared and processed the dataset before conducting any exploratory data analysis on it. After loading all of the relevant files and creating a dataset without batching or shuffling, they used keras to normalize the data. Normalization is important because it puts features on an even playing ground, improving the model’s performance and accuracy.
@@ -73,7 +74,7 @@ Before beginning any analysis, this user split the data to access statistics abo
 ## Model Training
 [Kaggle Notebook- Ahmed Suliman](https://www.kaggle.com/code/ahmedelneim/model-training-atmospheric-physics)
 After normalizing the data, this user used keras to create a model. By using hyperparameter tuning with his own tuner, he was able to create a graph of the R^2 score callback.
-
+***
 [Kaggle Notebook- Romulo Ferreira](https://www.kaggle.com/code/romulol/leap-xgboost)
 After splitting the training and target features and standardizing the data, he used the following code to create his model.
 
@@ -116,6 +117,6 @@ for i in range(out_i, out_f):
 r2_df = pd.DataFrame({'r2_score': r2_vector})
 mse_df = pd.DataFrame({'mse_score': mse_vector})
 ```
-
+***
 [Kaggle Notebook- Romulo Ferreira](https://www.kaggle.com/code/romulol/leap-mlp)
 This notebook uses a multilayer perceptron to see which hyperparameters are the most important and can produce a model that is the most accurate. To show his results, this user uses a parallel coordinate plot and contour plot to display his findings.
