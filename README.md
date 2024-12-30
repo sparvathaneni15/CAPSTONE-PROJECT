@@ -11,7 +11,7 @@ As part of the exploratory data analysis (EDA), I will first get the IQR of all 
 
 # Survey Existing Research
 ## Data Preparation
-[Kaggle Notebok- Min-Hsien Weng](https://www.kaggle.com/code/minhsienweng/leap-data-divided-to-small-chunks)
+[Kaggle Notebook- Min-Hsien Weng](https://www.kaggle.com/code/minhsienweng/leap-data-divided-to-small-chunks)
 
 This user used dask dataframe to load all 10 million samples into a single dataframe. He concatenated each small dataset to create the all-encompassing dataframe, ready for use in the notebook.
 
