@@ -9,6 +9,8 @@ The dataset has already been split into the training and test data, with the tra
 
 As part of the exploratory data analysis (EDA), I will first get the IQR of all the features, so I can identify outliers. Then, I will create a correlation matrix to see what features are related/irrelevant to each other. After that, I will use data visualizations like scatter plots, line plots, and heatmaps for additional exploration. This will allow me to create a more focused and plausible hypothesis. Depending on what relations are found between features, it may become beneficial to conduct a PCA, in order to reduce the dimensionality of the dataset (many features have 60 dimensions).
 
+To implement and deploy this project, I will utilize AWS architecture. I will transfer the dataset to an S3 bucket for accessibility and also store the resulting model in a bucket as well. The model will be trained using Amazon's SageMaker service. Users will be able to access the model through an internet gateway and API Gateway.
+
 # Survey Existing Research
 ## Data Preparation
 [Kaggle Notebook- Min-Hsien Weng](https://www.kaggle.com/code/minhsienweng/leap-data-divided-to-small-chunks)
