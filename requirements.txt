@@ -7,6 +7,8 @@ boto3==1.17.52
 ipykernel
 torch
 botocore==1.20.52
-PyYAML==5.4.1
 urllib3==1.26.5
 awscli==1.19.52
+tensorflow==2.13.0
+python-dotenv
+s3fs
