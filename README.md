@@ -10,4 +10,4 @@ The dataset has already been split into the training and test data, with the tra
 As part of the exploratory data analysis (EDA), I will first get the IQR of all the features, so I can identify outliers. Then, I will create a correlation matrix to see what features are related/irrelevant to each other. After that, I will use data visualizations like scatter plots, line plots, and heatmaps for additional exploration. This will allow me to create a more focused and plausible hypothesis. Depending on what relations are found between features, it may become beneficial to conduct a PCA, in order to reduce the dimensionality of the dataset (many features have 60 dimensions).
 
 # Survey Existing Research
-[Link]([url](https://docs.google.com/document/d/1yJoqTdEhT7qudbydGBeaO0jKNYxtCi66W0P4fGvPYPg/edit?tab=t.0))
+[Link]((https://docs.google.com/document/d/1yJoqTdEhT7qudbydGBeaO0jKNYxtCi66W0P4fGvPYPg/edit?tab=t.0))
